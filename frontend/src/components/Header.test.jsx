@@ -4,14 +4,14 @@ import { MemoryRouter } from 'react-router-dom';
 
 import { render } from '@testing-library/react';
 
-import Main from './Main';
+import Header from './Header';
 
-test('Main', () => {
+test('Header', () => {
   const { container } = render((
     <MemoryRouter>
-      <Main />
+      <Header />
     </MemoryRouter>
   ));
 
-  expect(container).toHaveTextContent('MainContent');
+  expect(container).toHaveTextContent('Header');
 });
