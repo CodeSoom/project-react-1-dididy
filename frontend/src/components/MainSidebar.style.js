@@ -8,22 +8,21 @@ export const MainSidebarWrapper = styled.div({
   alignItems: 'stretch',
   backgroundColor: 'light-gray',
   color: 'black',
+});
 
-  '.webcam-container': {
-    flex: 1,
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
+export const WebcamContainerWrapper = styled.div({
+  flex: 1,
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
 
-    // 'video': {
-    //   alignSelf: 'stretch',
-    //   width: '100%',
-    //   height: 'auto',
-    // },
+  video: {
+    alignSelf: 'stretch',
+    width: '100%',
+    height: 'auto',
   },
 });
 
-// TODO: delete this style
-export const dummy = styled.div({
-
-});
+export const ButtonWrapper = styled.button(({ toggle }) => ({
+  display: toggle ? 'none' : 'inline',
+}));

@@ -18,5 +18,10 @@ module.exports = {
     historyApiFallback: {
       index: 'index.html',
     },
+    proxy: {
+      '/socket.io': {
+        target: 'http://localhost:8000',
+      },
+    },
   },
 };
