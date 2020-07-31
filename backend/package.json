@@ -1,0 +1,59 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "engines": {
+    "node": "14.4"
+  },
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "lint": "eslint \"src/**/*.js\"",
+    "build": "webpack -p",
+    "test": "jest --runInBand --detectOpenHandles"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CodeSoomAssignment/project-react-1-dididy.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CodeSoomAssignment/project-react-1-dididy/issues"
+  },
+  "homepage": "https://github.com/CodeSoomAssignment/project-react-1-dididy#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.10.4",
+    "@babel/core": "^7.10.4",
+    "@babel/node": "^7.10.4",
+    "@babel/preset-env": "^7.10.4",
+    "@types/jest": "^26.0.4",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.1.0",
+    "babel-preset-env": "^1.7.0",
+    "css-loader": "^4.1.1",
+    "eslint": "^7.4.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.0",
+    "given2": "^2.1.7",
+    "jest": "^26.1.0",
+    "jest-plugin-context": "^2.9.0",
+    "nodemon": "^2.0.4",
+    "style-loader": "^1.2.1",
+    "supertest": "^4.0.2",
+    "webpack": "^4.44.1",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "jsonwebtoken": "^8.5.1",
+    "net": "^1.0.2",
+    "socket.io": "^2.3.0",
+    "socket.io-client": "^2.3.0",
+    "socketio-jwt": "^4.6.2"
+  }
+}

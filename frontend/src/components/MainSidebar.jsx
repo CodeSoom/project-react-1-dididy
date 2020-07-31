@@ -19,7 +19,7 @@ export default function MainSidebar() {
   const socket = useRef();
 
   useEffect(() => {
-    socket.current = io.connect('/');
+    socket.current = io.connect('https://pair-with.herokuapp.com/');
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
       .then((requestStream) => {
