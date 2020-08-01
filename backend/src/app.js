@@ -4,7 +4,7 @@ const http = require('http');
 const app = express();
 
 app.get('/', (req, res) => {
-  res.status(200).send({ message: 'Hello World!' });
+  res.status(200).send({ message: 'Deploy test!' });
 });
 
 const server = http.createServer(app);
