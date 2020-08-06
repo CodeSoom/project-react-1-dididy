@@ -1,3 +1,6 @@
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
+
 const path = require('path');
 
 const SRC_DIR = path.join(__dirname, '/src');
@@ -21,6 +24,12 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'],
   },
-
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new HtmlWebpackPlugin({
+      template: 'index.html',
+      showErrors: true,
+    }),
+  ],
   mode: 'development',
 };

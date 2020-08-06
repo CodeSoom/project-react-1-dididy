@@ -7,6 +7,7 @@
     "@emotion/core": "^10.0.28",
     "@emotion/styled": "^10.0.27",
     "@testing-library/jest-dom": "^5.11.2",
+    "html-webpack-plugin": "^4.3.0",
     "netlify-cli": "^2.58.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -21,7 +22,7 @@
   },
   "scripts": {
     "start": "webpack-dev-server",
-    "build": "webpack -p",
+    "build": "webpack --mode=production",
     "test:unit": "jest",
     "coverage": "npm run test:unit -- --coverage",
     "test": "npm run coverage",
