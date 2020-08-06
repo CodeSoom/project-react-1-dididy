@@ -6,6 +6,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: frontend
+
     strategy:
       matrix:
         node-version: [12.x]
@@ -18,23 +22,23 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Install dependencies
         run: npm ci
-        working-directory: frontend
+        # working-directory: frontend
       # - name: Test
       #   run: npm test
       #   env:
       #     HEADLESS: true
-      # - name: Lint
-      #   run: npm run lint
+      - name: Lint
+        run: npm run lint
       - name: Build
         run: |
           npm run build
-        working-directory: frontend
+        # working-directory: frontend
       - name: Deploy to netlify
         run: npx netlify-cli deploy --dir=.
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.MY_TOKEN_SECRET }}
           NETLIFY_SITE_ID: ${{ secrets.MY_TOKEN_SITE_ID }}
-        working-directory: frontend
+        working-directory: frontend/dist
       - name: Deploy Heroku
         uses: akhileshns/heroku-deploy@v3.4.6 # This is the action
         with:
