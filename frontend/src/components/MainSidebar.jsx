@@ -1,18 +1,34 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
+
+import { useDispatch, useSelector } from 'react-redux';
 
 import io from 'socket.io-client';
 import Peer from 'simple-peer';
 
+import {
+  setMyId,
+  setUsers,
+  setStream,
+  setReceivingCall,
+  setCaller,
+  setCallerSignal,
+  setCallAccepted,
+} from '../slice';
+
+import { get } from '../utils';
+
 import { MainSidebarWrapper, ButtonWrapper, WebcamContainerWrapper } from './MainSidebar.style';
 
 export default function MainSidebar() {
-  const [yourID, setYourID] = useState('');
-  const [users, setUsers] = useState({});
-  const [stream, setStream] = useState();
-  const [receivingCall, setReceivingCall] = useState(false);
-  const [caller, setCaller] = useState('');
-  const [callerSignal, setCallerSignal] = useState();
-  const [callAccepted, setCallAccepted] = useState(false);
+  const dispatch = useDispatch();
+
+  const myId = useSelector(get('myId'));
+  const users = useSelector(get('users'));
+  const stream = useSelector(get('stream'));
+  const receivingCall = useSelector(get('receivingCall'));
+  const caller = useSelector(get('caller'));
+  const callerSignal = useSelector(get('callerSignal'));
+  const callAccepted = useSelector(get('callAccepted'));
 
   const userVideo = useRef();
   const partnerVideo = useRef();
@@ -23,28 +39,28 @@ export default function MainSidebar() {
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
       .then((requestStream) => {
-        setStream(requestStream);
+        dispatch(setStream({ stream: requestStream }));
         if (userVideo.current) {
           userVideo.current.srcObject = requestStream;
         }
       });
 
-    socket.current.on('yourID', (id) => {
-      setYourID(id);
+    socket.current.on('myId', (id) => {
+      dispatch(setMyId({ myId: id }));
     });
     socket.current.on('allUsers', (requestUsers) => {
-      setUsers(requestUsers);
+      dispatch(setUsers({ users: requestUsers }));
     });
 
     socket.current.on('hey', (data) => {
-      setReceivingCall(true);
-      setCaller(data.from);
-      setCallerSignal(data.signal);
+      dispatch(setReceivingCall({ receivingCall: true }));
+      dispatch(setCaller({ caller: data.from }));
+      dispatch(setCallerSignal({ callerSignal: data.signal }));
     });
   }, []);
 
   function callPeer(id) {
-    setCaller(id);
+    dispatch(setCaller({ caller: id }));
     const peer = new Peer({
       initiator: true,
       trickle: false,
@@ -70,7 +86,7 @@ export default function MainSidebar() {
       socket.current.emit('callUser', {
         userToCall: id,
         signalData: data,
-        from: yourID,
+        from: myId,
       });
     });
 
@@ -81,13 +97,13 @@ export default function MainSidebar() {
     });
 
     socket.current.on('callAccepted', (signal) => {
-      setCallAccepted(true);
+      dispatch(setCallAccepted({ callAccepted: true }));
       peer.signal(signal);
     });
   }
 
   function acceptCall() {
-    setCallAccepted(true);
+    dispatch(setCallAccepted({ callAccepted: true }));
     const peer = new Peer({
       initiator: false,
       trickle: false,
@@ -137,10 +153,10 @@ export default function MainSidebar() {
         <br />
         My id:
         {' '}
-        {yourID}
+        {myId}
       </div>
       {Object.keys(users).map((key) => {
-        if (key === yourID) {
+        if (key === myId) {
           return null;
         }
         return (
