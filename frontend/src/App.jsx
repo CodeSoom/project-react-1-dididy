@@ -15,8 +15,8 @@ export default function App() {
         <GlobalWrapper>
           <Header />
           <Route path="/home" component={Main} />
-        </GlobalWrapper>
-      </Switch>
+        </Switch>
+      </GlobalWrapper>
     </div>
   );
 }
