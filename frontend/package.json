@@ -6,6 +6,7 @@
     "@codeceptjs/configure": "^0.5.2",
     "@emotion/core": "^10.0.28",
     "@emotion/styled": "^10.0.27",
+    "@reduxjs/toolkit": "^1.4.0",
     "@testing-library/jest-dom": "^5.11.2",
     "html-webpack-plugin": "^4.3.0",
     "netlify-cli": "^2.58.0",

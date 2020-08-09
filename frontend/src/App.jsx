@@ -22,7 +22,7 @@ export default function App() {
       <Switch>
         <GlobalWrapper>
           <Header />
-          <Route exact path="/" component={Main} />
+          <Route path="/home" component={Main} />
         </GlobalWrapper>
       </Switch>
     </div>
