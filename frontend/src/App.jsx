@@ -11,7 +11,7 @@ import { GlobalWrapper } from './App.style';
 
 export default function App() {
   return (
-    <div>
+    <>
       <Global
         styles={css`
           body {
