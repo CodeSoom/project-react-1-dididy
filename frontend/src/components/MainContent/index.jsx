@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { MainContentWrapper } from './MainContent.style';
+import { MainContentWrapper } from './style';
 
 export default function MainContent() {
   return (

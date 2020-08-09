@@ -18,7 +18,7 @@ io.on('connection', (requestSocket) => {
   if (!users[requestSocket.id]) {
     users[requestSocket.id] = requestSocket.id;
   }
-  requestSocket.emit('yourID', requestSocket.id);
+  requestSocket.emit('myId', requestSocket.id);
   io.sockets.emit('allUsers', users);
   requestSocket.on('disconnect', () => {
     delete users[requestSocket.id];
