@@ -11,7 +11,7 @@ import { GlobalWrapper } from './App.style';
 
 export default function App() {
   return (
-    <div>
+    <>
       <Global
         styles={css`
           body {
@@ -25,6 +25,6 @@ export default function App() {
           <Route path="/home" component={Main} />
         </GlobalWrapper>
       </Switch>
-    </div>
+    </>
   );
 }
