@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-export const GlobalWrapper = styled.div({
+export const StyleWrapper = styled.div({
   width: '100vw',
   height: '100vh',
   background: '#EDEDED',
