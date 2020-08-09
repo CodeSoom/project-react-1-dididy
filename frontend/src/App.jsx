@@ -19,12 +19,12 @@ export default function App() {
           }
         `}
       />
-      <Switch>
-        <GlobalWrapper>
-          <Header />
+      <GlobalWrapper>
+        <Header />
+        <Switch>
           <Route path="/home" component={Main} />
-        </GlobalWrapper>
-      </Switch>
+        </Switch>
+      </GlobalWrapper>
     </div>
   );
 }
