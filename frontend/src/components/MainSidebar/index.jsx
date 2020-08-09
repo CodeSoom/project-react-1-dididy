@@ -13,11 +13,15 @@ import {
   setCaller,
   setCallerSignal,
   setCallAccepted,
-} from '../slice';
+} from '../../slice';
 
-import { get } from '../utils';
+import { get } from '../../utils';
 
-import { MainSidebarWrapper, ButtonWrapper, WebcamContainerWrapper } from './MainSidebar.style';
+import {
+  MainSidebarWrapper,
+  ButtonWrapper,
+  WebcamContainerWrapper,
+} from './style';
 
 export default function MainSidebar() {
   const dispatch = useDispatch();
@@ -140,7 +144,7 @@ export default function MainSidebar() {
     </div>
   );
 
-  const renderByCallStatus = (receivingCall ? IncomingCall : '');
+  const renderByCallStatus = receivingCall ? IncomingCall : '';
 
   const UserVideo = <video playsInline muted ref={userVideo} autoPlay />;
 
@@ -160,7 +164,12 @@ export default function MainSidebar() {
           return null;
         }
         return (
-          <ButtonWrapper key={key} type="button" onClick={() => callPeer(key)} toggle={callAccepted}>
+          <ButtonWrapper
+            key={key}
+            type="button"
+            onClick={() => callPeer(key)}
+            toggle={callAccepted}
+          >
             Call to
             {' '}
             {key}

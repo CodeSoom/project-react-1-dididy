@@ -6,10 +6,10 @@ import { render } from '@testing-library/react';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import MainSidebar from './MainSidebar';
+import MainSidebar from './index';
 
-import STREAM from '../../fixtures/stream';
-import CALLER_SIGNAL from '../../fixtures/callerSignal';
+import STREAM from '../../../fixtures/stream';
+import CALLER_SIGNAL from '../../../fixtures/callerSignal';
 
 describe('MainSidebar', () => {
   const dispatch = jest.fn();

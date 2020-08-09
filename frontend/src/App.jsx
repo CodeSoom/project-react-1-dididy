@@ -5,7 +5,7 @@ import { Switch, Route } from 'react-router-dom';
 import { Global, css } from '@emotion/core';
 
 import Header from './components/Header';
-import Main from './pages/Main';
+import Main from './pages/MainPage';
 
 import { GlobalWrapper } from './App.style';
 
