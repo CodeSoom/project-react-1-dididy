@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
-
 import io from 'socket.io-client';
 import Peer from 'simple-peer';
 
@@ -13,6 +12,7 @@ import {
   setCaller,
   setCallerSignal,
   setCallAccepted,
+  setCode,
 } from '../../slice';
 
 import { get } from '../../utils';
@@ -23,7 +23,7 @@ import {
   WebcamContainerWrapper,
 } from './style';
 
-export default function MainSidebar() {
+export default function MainSidebar({ tunnel, setTunnel }) {
   const dispatch = useDispatch();
 
   const myId = useSelector(get('myId'));
@@ -33,7 +33,6 @@ export default function MainSidebar() {
   const caller = useSelector(get('caller'));
   const callerSignal = useSelector(get('callerSignal'));
   const callAccepted = useSelector(get('callAccepted'));
-
   const userVideo = useRef();
   const partnerVideo = useRef();
   const socket = useRef();
@@ -63,6 +62,14 @@ export default function MainSidebar() {
     });
   }, []);
 
+  useEffect(() => {
+    if (tunnel) {
+      tunnel.on('data', (data) => {
+        dispatch(setCode({ code: data }));
+      });
+    }
+  }, [tunnel]);
+
   function callPeer(id) {
     dispatch(setCaller({ caller: id }));
     const peer = new Peer({
@@ -85,6 +92,8 @@ export default function MainSidebar() {
       },
       stream,
     });
+
+    setTunnel(peer);
 
     peer.on('signal', (data) => {
       socket.current.emit('callUser', {
@@ -113,6 +122,9 @@ export default function MainSidebar() {
       trickle: false,
       stream,
     });
+
+    setTunnel(peer);
+
     peer.on('signal', (data) => {
       socket.current.emit('acceptCall', { signal: data, to: caller });
     });

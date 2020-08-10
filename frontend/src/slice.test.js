@@ -6,6 +6,7 @@ import reducer, {
   setCaller,
   setCallerSignal,
   setCallAccepted,
+  setCode,
 } from './slice';
 
 import STREAM from '../fixtures/stream';
@@ -40,7 +41,7 @@ describe('reducer', () => {
 
       const state = reducer(initialState, setMyId({ myId }));
 
-      expect(state.myId).toEqual('test');
+      expect(state.myId).toEqual(myId);
     });
   });
 
@@ -67,7 +68,7 @@ describe('reducer', () => {
         stream: null,
       };
 
-      const state = reducer(initialState, setStream({ STREAM }));
+      const state = reducer(initialState, setStream({ stream: STREAM }));
 
       expect(state.stream).toEqual(STREAM);
     });
@@ -107,7 +108,7 @@ describe('reducer', () => {
         callerSignal: null,
       };
 
-      const state = reducer(initialState, setCallerSignal({ CALLER_SIGNAL }));
+      const state = reducer(initialState, setCallerSignal({ callerSignal: CALLER_SIGNAL }));
 
       expect(state.callerSignal).toEqual(CALLER_SIGNAL);
     });
@@ -124,6 +125,20 @@ describe('reducer', () => {
       const state = reducer(initialState, setCallAccepted({ callAccepted }));
 
       expect(state.callAccepted).toEqual(callAccepted);
+    });
+  });
+
+  describe('setCode', () => {
+    it('changes code', () => {
+      const initialState = {
+        code: '',
+      };
+
+      const code = 'test';
+
+      const state = reducer(initialState, setCode({ code }));
+
+      expect(state.callAccepted).toEqual(code);
     });
   });
 });
