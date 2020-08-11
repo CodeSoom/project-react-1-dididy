@@ -7,6 +7,9 @@ export const MainWrapper = styled.div({
   flex: 1,
   display: 'flex',
   alignItems: 'stretch',
+  '@media(max-width: 788px)': {
+    flexDirection: 'column',
+  },
 });
 
 // TODO: delete this style
