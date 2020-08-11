@@ -15,6 +15,7 @@ export default function App() {
         <StyleWrapper>
           <Header />
           <Route path="/" component={MainPage} />
+          <Route path="/:id" component={MainPage} />
         </StyleWrapper>
       </Switch>
     </div>
