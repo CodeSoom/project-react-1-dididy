@@ -14,7 +14,7 @@ export default function App() {
       <Switch>
         <StyleWrapper>
           <Header />
-          <Route path="/home" component={MainPage} />
+          <Route path="/" component={MainPage} />
         </StyleWrapper>
       </Switch>
     </div>

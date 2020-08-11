@@ -11,6 +11,7 @@ const { actions, reducer } = createSlice({
     caller: '',
     callerSignal: null,
     callAccepted: false,
+    code: '',
   },
 
   reducers: {
@@ -56,6 +57,12 @@ const { actions, reducer } = createSlice({
         callAccepted,
       };
     },
+    setCode(state, { payload: { code } }) {
+      return {
+        ...state,
+        code,
+      };
+    },
   },
 });
 
@@ -67,6 +74,7 @@ export const {
   setCaller,
   setCallerSignal,
   setCallAccepted,
+  setCode,
 } = actions;
 
 export default reducer;
