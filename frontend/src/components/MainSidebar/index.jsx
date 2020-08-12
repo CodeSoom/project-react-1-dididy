@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useCallback, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 import io from 'socket.io-client';
@@ -19,7 +19,7 @@ import { get } from '../../utils';
 
 import {
   MainSidebarWrapper,
-  ButtonWrapper,
+  // ButtonWrapper,
   WebcamContainerWrapper,
   IncomingCallPopUp,
   PopUp,
@@ -29,7 +29,7 @@ export default function MainSidebar({ tunnel, setTunnel, history }) {
   const dispatch = useDispatch();
 
   const myId = useSelector(get('myId'));
-  const users = useSelector(get('users'));
+  // const users = useSelector(get('users'));
   // const stream = useSelector(get('stream'));
   const receivingCall = useSelector(get('receivingCall'));
   const caller = useSelector(get('caller'));
@@ -68,7 +68,6 @@ export default function MainSidebar({ tunnel, setTunnel, history }) {
           stream,
         });
         setTunnel(peer);
-        console.log(peer);
         peer.on('signal', (data) => {
           socket.current.emit('callUser', {
             userToCall: id,
@@ -92,29 +91,24 @@ export default function MainSidebar({ tunnel, setTunnel, history }) {
   }
 
   function acceptCall() {
-    setTimeout(
-      () => {
-        dispatch(setCallAccepted({ callAccepted: true }));
-        const peer = new Peer({
-          initiator: false,
-          trickle: false,
-          stream,
-        });
+    dispatch(setCallAccepted({ callAccepted: true }));
+    const peer = new Peer({
+      initiator: false,
+      trickle: false,
+      stream,
+    });
 
-        setTunnel(peer);
+    setTunnel(peer);
 
-        peer.on('signal', (data) => {
-          console.log('data', data)
-          socket.current.emit('acceptCall', { signal: data, to: caller });
-        });
+    peer.on('signal', (data) => {
+      socket.current.emit('acceptCall', { signal: data, to: caller });
+    });
 
-        peer.on('stream', (requestStream) => {
-          partnerVideo.current.srcObject = requestStream;
-        });
+    peer.on('stream', (requestStream) => {
+      partnerVideo.current.srcObject = requestStream;
+    });
 
-        peer.signal(callerSignal);
-      }, 1000,
-    );
+    peer.signal(callerSignal);
   }
 
   useEffect(() => {
@@ -141,7 +135,6 @@ export default function MainSidebar({ tunnel, setTunnel, history }) {
       dispatch(setReceivingCall({ receivingCall: true }));
       dispatch(setCaller({ caller: data.from }));
       dispatch(setCallerSignal({ callerSignal: data.signal }));
-      console.log('callerSignal', callerSignal, data.signal);
     });
   }, []);
 
@@ -154,8 +147,12 @@ export default function MainSidebar({ tunnel, setTunnel, history }) {
   }, [code]);
 
   useEffect(() => {
-    callPeer(history.location.pathname.replace('/', ''));
-  }, [myId]);
+    setTimeout(
+      () => {
+        callPeer(history.location.pathname.replace('/', ''));
+      }, 3000,
+    );
+  }, [myId]); // 이부분이 문제입니
 
   const IncomingCall = (
     <IncomingCallPopUp>
@@ -189,6 +186,7 @@ export default function MainSidebar({ tunnel, setTunnel, history }) {
   return (
     <MainSidebarWrapper>
       <div>
+        <button onClick={() =>callPeer(history.location.pathname.replace('/', '')) }>a</button>
         ID:
         {' '}
         {myId}
@@ -212,7 +210,7 @@ export default function MainSidebar({ tunnel, setTunnel, history }) {
           </button>
         )}
       </div>
-      {Object.keys(users).map((key) => {
+      {/* {Object.keys(users).map((key) => {
         if (key === myId) {
           return null;
         }
@@ -228,7 +226,7 @@ export default function MainSidebar({ tunnel, setTunnel, history }) {
             {key}
           </ButtonWrapper>
         );
-      })}
+      })} */}
       {callAccepted ? ConnectedIndicator : renderByCallStatus}
       <WebcamContainerWrapper>
         {stream ? UserVideo : ''}
