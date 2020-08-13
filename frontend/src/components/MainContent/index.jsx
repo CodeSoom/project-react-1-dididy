@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
 
-// import { ControlledEditor } from '@monaco-editor/react';
+import { ControlledEditor } from '@monaco-editor/react';
 
-import { setCode } from '../../slice';
+import { setCode, sendToUser } from '../../slice';
 
 import { MainContentWrapper } from './style';
 
@@ -23,33 +23,35 @@ export default function MainContent({ tunnel }) {
   //   } else {
   //     console.log("code");
   //   }
-  //  }, [code]);
+  // }, [code]);
 
   // function test1(ev, value) {
-  //   console.log(ev);
+  //   tunnel.send(value);
   //   dispatch(setCode({ code: value }));
   // }
 
-  function test2(event) {
-    tunnel.send(event.target.value);
-    dispatch(setCode({ code: event.target.value }));
+  function handleChange(event) {
+    const { value } = event.target;
+    dispatch(sendToUser(value))
+    // tunnel.send(event.target.value);
+    // dispatch(setCode({ code: event.target.value }));
   }
 
   return (
     <MainContentWrapper>
+      <textarea
+        style={{ height: '50%' }}
+        type="text"
+        value={code}
+        onChange={handleChange}
+        disabled={!callAccepted}
+      />
       {/* <ControlledEditor
-        height="90vh"
+        height="50%"
         value={code}
         onChange={test1}
         language="javascript"
       /> */}
-      <textarea
-        style={{ height: '100%' }}
-        type="text"
-        value={code}
-        onChange={test2}
-        disabled={!callAccepted}
-      />
     </MainContentWrapper>
   );
 }
